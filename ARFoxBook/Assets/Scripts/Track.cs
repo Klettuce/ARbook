@@ -16,17 +16,11 @@ public class Track : MonoBehaviour
     public List<AudioClip> list2 = new List<AudioClip>();
     private Dictionary<string, AudioClip> dict2 = new Dictionary<string, AudioClip>();
 
-    //
-    //private GameObject CurrentActiveObject = null;
-
-    // Start is called before the first frame update
-    // SetActive 한번돌때마다 다 false로 바뀌게 if
     void Start()
     {
         foreach (GameObject o in list1)
         {
             dict1.Add(o.name, o);
-            //o.SetActive(false);
         }
 
         foreach (AudioClip o in list2)
@@ -44,7 +38,6 @@ public class Track : MonoBehaviour
     {
         manager.trackedImagesChanged -= OnChanged;
     }
-
     private void OnChanged(ARTrackedImagesChangedEventArgs eventArgs)
     {
         foreach (ARTrackedImage t in eventArgs.added)
@@ -59,7 +52,6 @@ public class Track : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void UpdateImage(ARTrackedImage t)
     {
         string name = t.referenceImage.name;
@@ -77,19 +69,15 @@ public class Track : MonoBehaviour
                 o.SetActive(false);
             }
         }
-        //GameObject o = dict1[name];
-        
     }
 
     void UpdateSound(ARTrackedImage t)
     {
         string name = t.referenceImage.name;
 
-        //AudioClip sound = dict2[name];
         if(dict2.TryGetValue(name, out AudioClip sound))
         {
             GetComponent<AudioSource>().PlayOneShot(sound);
         }
-        
     }
 }
